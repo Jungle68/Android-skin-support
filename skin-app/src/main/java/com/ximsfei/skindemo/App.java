@@ -22,7 +22,7 @@ public class App extends Application {
 //        SkinCardViewManager.init(this);
 //        SkinFlycoTabLayoutManager.init(this);
 //        SkinCompatManager.init(this).loadSkin();
-        SkinCompatManager.init(this)
+        SkinCompatManager.get(this)
                 .addInflater(new SkinMaterialViewInflater())    // material design
                 .addInflater(new SkinCardViewInflater())        // CardView v7
                 .addInflater(new SkinCircleImageViewInflater()) // hdodenhof/CircleImageView

@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.support.design.widget.FloatingActionButton;
 import android.util.AttributeSet;
 
+import skin.support.SkinCompatManager;
 import skin.support.content.res.SkinCompatResources;
 import skin.support.design.R;
 import skin.support.widget.SkinCompatHelper;
@@ -50,14 +51,14 @@ public class SkinMaterialFloatingActionButton extends FloatingActionButton imple
     private void applyBackgroundTintResource() {
         mBackgroundTintResId = SkinCompatHelper.checkResourceId(mBackgroundTintResId);
         if (mBackgroundTintResId != INVALID_ID) {
-            setBackgroundTintList(SkinCompatResources.getInstance().getColorStateList(mBackgroundTintResId));
+            setBackgroundTintList(SkinCompatManager.get(getContext()).getRes().getColorStateList(mBackgroundTintResId));
         }
     }
 
     private void applyRippleColorResource() {
         mRippleColorResId = SkinCompatHelper.checkResourceId(mRippleColorResId);
         if (mRippleColorResId != INVALID_ID) {
-            setRippleColor(SkinCompatResources.getInstance().getColor(mRippleColorResId));
+            setRippleColor(SkinCompatManager.get(getContext()).getRes().getColor(mRippleColorResId));
         }
     }
 

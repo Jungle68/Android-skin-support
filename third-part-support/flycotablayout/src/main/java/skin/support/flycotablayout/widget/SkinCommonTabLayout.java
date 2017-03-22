@@ -7,7 +7,7 @@ import android.util.AttributeSet;
 
 import com.flyco.tablayout.CommonTabLayout;
 
-import skin.support.content.res.SkinCompatResources;
+import skin.support.SkinCompatManager;
 import skin.support.flycotablayout.R;
 import skin.support.widget.SkinCompatBackgroundHelper;
 import skin.support.widget.SkinCompatHelper;
@@ -68,19 +68,19 @@ public class SkinCommonTabLayout extends CommonTabLayout implements SkinCompatSu
 
     private void applyCommonTabLayoutResources() {
         if (mIndicatorColorResId != INVALID_ID) {
-            setIndicatorColor(SkinCompatResources.getInstance().getColor(mIndicatorColorResId));
+            setIndicatorColor(SkinCompatManager.get(getContext()).getRes().getColor(mIndicatorColorResId));
         }
         if (mUnderlineColorResId != INVALID_ID) {
-            setUnderlineColor(SkinCompatResources.getInstance().getColor(mUnderlineColorResId));
+            setUnderlineColor(SkinCompatManager.get(getContext()).getRes().getColor(mUnderlineColorResId));
         }
         if (mDividerColorResId != INVALID_ID) {
-            setDividerColor(SkinCompatResources.getInstance().getColor(mDividerColorResId));
+            setDividerColor(SkinCompatManager.get(getContext()).getRes().getColor(mDividerColorResId));
         }
         if (mTextSelectColorResId != INVALID_ID) {
-            setTextSelectColor(SkinCompatResources.getInstance().getColor(mTextSelectColorResId));
+            setTextSelectColor(SkinCompatManager.get(getContext()).getRes().getColor(mTextSelectColorResId));
         }
         if (mTextUnselectColorResId != INVALID_ID) {
-            setTextUnselectColor(SkinCompatResources.getInstance().getColor(mTextUnselectColorResId));
+            setTextUnselectColor(SkinCompatManager.get(getContext()).getRes().getColor(mTextUnselectColorResId));
         }
     }
 

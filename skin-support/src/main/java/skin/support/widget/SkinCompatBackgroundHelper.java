@@ -1,16 +1,16 @@
 package skin.support.widget;
 
 import android.content.res.ColorStateList;
+import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.view.ViewCompat;
-import android.support.v7.widget.TintTypedArray;
 import android.util.AttributeSet;
 import android.view.View;
 
 import skin.support.R;
-import skin.support.content.res.SkinCompatResources;
+import skin.support.SkinCompatManager;
 
 /**
  * Created by ximsfei on 2017/1/10.
@@ -26,7 +26,7 @@ public class SkinCompatBackgroundHelper extends SkinCompatHelper {
     }
 
     public void loadFromAttributes(AttributeSet attrs, int defStyleAttr) {
-        TintTypedArray a = TintTypedArray.obtainStyledAttributes(mView.getContext(), attrs,
+        TypedArray a = mView.getContext().obtainStyledAttributes(attrs,
                 R.styleable.SkinBackgroundHelper, defStyleAttr, 0);
         try {
             if (a.hasValue(R.styleable.SkinBackgroundHelper_android_background)) {
@@ -53,19 +53,19 @@ public class SkinCompatBackgroundHelper extends SkinCompatHelper {
         String typeName = mView.getResources().getResourceTypeName(mBackgroundResId);
         if ("color".equals(typeName)) {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-                int color = SkinCompatResources.getInstance().getColor(mBackgroundResId);
+                int color = SkinCompatManager.get(mView.getContext()).getRes().getColor(mBackgroundResId);
                 mView.setBackgroundColor(color);
             } else {
-                ColorStateList colorStateList = SkinCompatResources.getInstance().getColorStateList(mBackgroundResId);
+                ColorStateList colorStateList = SkinCompatManager.get(mView.getContext()).getRes().getColorStateList(mBackgroundResId);
                 Drawable drawable = mView.getBackground();
                 DrawableCompat.setTintList(drawable, colorStateList);
                 ViewCompat.setBackground(mView, drawable);
             }
         } else if ("drawable".equals(typeName)) {
-            Drawable drawable = SkinCompatResources.getInstance().getDrawable(mBackgroundResId);
+            Drawable drawable = SkinCompatManager.get(mView.getContext()).getRes().getDrawable(mBackgroundResId);
             ViewCompat.setBackground(mView, drawable);
         } else if ("mipmap".equals(typeName)) {
-            Drawable drawable = SkinCompatResources.getInstance().getMipmap(mBackgroundResId);
+            Drawable drawable = SkinCompatManager.get(mView.getContext()).getRes().getMipmap(mBackgroundResId);
             ViewCompat.setBackground(mView, drawable);
         }
     }

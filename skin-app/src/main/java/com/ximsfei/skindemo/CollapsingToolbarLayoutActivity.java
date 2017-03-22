@@ -13,7 +13,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import skin.support.SkinCompatManager;
-import skin.support.utils.SkinPreference;
 
 /**
  * Created by ximsfei on 17-3-2.
@@ -68,10 +67,10 @@ public class CollapsingToolbarLayoutActivity extends BaseActivity {
         findViewById(R.id.small_photo).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (TextUtils.isEmpty(SkinPreference.getInstance().getSkinName())) {
-                    SkinCompatManager.getInstance().loadSkin("night.skin", null);
+                if (TextUtils.isEmpty(SkinCompatManager.get(CollapsingToolbarLayoutActivity.this).getCurSkinName())) {
+                    SkinCompatManager.get(CollapsingToolbarLayoutActivity.this).loadSkin("night.skin", null);
                 } else {
-                    SkinCompatManager.getInstance().restoreDefaultTheme();
+                    SkinCompatManager.get(CollapsingToolbarLayoutActivity.this).restoreDefaultTheme();
                 }
             }
         });

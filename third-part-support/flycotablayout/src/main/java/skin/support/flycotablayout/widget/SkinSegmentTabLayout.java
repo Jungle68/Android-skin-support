@@ -9,7 +9,7 @@ import com.flyco.tablayout.SegmentTabLayout;
 
 import java.lang.reflect.Field;
 
-import skin.support.content.res.SkinCompatResources;
+import skin.support.SkinCompatManager;
 import skin.support.flycotablayout.R;
 import skin.support.widget.SkinCompatBackgroundHelper;
 import skin.support.widget.SkinCompatHelper;
@@ -65,22 +65,22 @@ public class SkinSegmentTabLayout extends SegmentTabLayout implements SkinCompat
 
     private void applySegmentTabLayoutResources() {
         if (mIndicatorColorResId != INVALID_ID) {
-            setIndicatorColor(SkinCompatResources.getInstance().getColor(mIndicatorColorResId));
+            setIndicatorColor(SkinCompatManager.get(getContext()).getRes().getColor(mIndicatorColorResId));
         }
         if (mDividerColorResId != INVALID_ID) {
-            setDividerColor(SkinCompatResources.getInstance().getColor(mDividerColorResId));
+            setDividerColor(SkinCompatManager.get(getContext()).getRes().getColor(mDividerColorResId));
         }
         if (mTextSelectColorResId != INVALID_ID) {
-            setTextSelectColor(SkinCompatResources.getInstance().getColor(mTextSelectColorResId));
+            setTextSelectColor(SkinCompatManager.get(getContext()).getRes().getColor(mTextSelectColorResId));
         }
         if (mTextUnselectColorResId != INVALID_ID) {
-            setTextUnselectColor(SkinCompatResources.getInstance().getColor(mTextUnselectColorResId));
+            setTextUnselectColor(SkinCompatManager.get(getContext()).getRes().getColor(mTextUnselectColorResId));
         }
         if (mBarColorResId != INVALID_ID) {
-            setBarColor(SkinCompatResources.getInstance().getColor(mBarColorResId));
+            setBarColor(SkinCompatManager.get(getContext()).getRes().getColor(mBarColorResId));
         }
         if (mBarStrokeColorResId != INVALID_ID) {
-            setBarStrokeColor(SkinCompatResources.getInstance().getColor(mBarStrokeColorResId));
+            setBarStrokeColor(SkinCompatManager.get(getContext()).getRes().getColor(mBarStrokeColorResId));
         }
     }
 

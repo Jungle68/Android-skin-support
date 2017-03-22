@@ -9,6 +9,7 @@ import android.support.v7.widget.TintTypedArray;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 
+import skin.support.SkinCompatManager;
 import skin.support.content.res.SkinCompatResources;
 import skin.support.design.R;
 import skin.support.widget.SkinCompatHelper;
@@ -61,7 +62,7 @@ public class SkinMaterialBottomNavigationView extends BottomNavigationView imple
     private void applyItemTextColorResource() {
         mTextColorResId = SkinCompatHelper.checkResourceId(mTextColorResId);
         if (mTextColorResId != INVALID_ID) {
-            setItemTextColor(SkinCompatResources.getInstance().getColorStateList(mTextColorResId));
+            setItemTextColor(SkinCompatManager.get(getContext()).getRes().getColorStateList(mTextColorResId));
         } else {
             mDefaultTintResId = SkinCompatHelper.checkResourceId(mDefaultTintResId);
             if (mDefaultTintResId != INVALID_ID) {
@@ -73,7 +74,7 @@ public class SkinMaterialBottomNavigationView extends BottomNavigationView imple
     private void applyItemIconTintResource() {
         mIconTintResId = SkinCompatHelper.checkResourceId(mIconTintResId);
         if (mIconTintResId != INVALID_ID) {
-            setItemIconTintList(SkinCompatResources.getInstance().getColorStateList(mIconTintResId));
+            setItemIconTintList(SkinCompatManager.get(getContext()).getRes().getColorStateList(mIconTintResId));
         } else {
             mDefaultTintResId = SkinCompatHelper.checkResourceId(mDefaultTintResId);
             if (mDefaultTintResId != INVALID_ID) {
@@ -89,7 +90,7 @@ public class SkinMaterialBottomNavigationView extends BottomNavigationView imple
         }
         ColorStateList baseColor = AppCompatResources.getColorStateList(getContext(), value.resourceId);
 
-        int colorPrimary = SkinCompatResources.getInstance().getColor(mDefaultTintResId);
+        int colorPrimary = SkinCompatManager.get(getContext()).getRes().getColor(mDefaultTintResId);
         int defaultColor = baseColor.getDefaultColor();
         return new ColorStateList(new int[][]{
                 DISABLED_STATE_SET,

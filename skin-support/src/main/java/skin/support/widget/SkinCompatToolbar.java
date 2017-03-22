@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
 
 import skin.support.R;
+import skin.support.SkinCompatManager;
 import skin.support.content.res.SkinCompatResources;
 
 import static skin.support.widget.SkinCompatHelper.INVALID_ID;
@@ -69,21 +70,21 @@ public class SkinCompatToolbar extends Toolbar implements SkinCompatSupportable 
     private void applyTitleTextColor() {
         mTitleTextColorResId = SkinCompatHelper.checkResourceId(mTitleTextColorResId);
         if (mTitleTextColorResId != INVALID_ID) {
-            setTitleTextColor(SkinCompatResources.getInstance().getColor(mTitleTextColorResId));
+            setTitleTextColor(SkinCompatManager.get(getContext()).getRes().getColor(mTitleTextColorResId));
         }
     }
 
     private void applySubtitleTextColor() {
         mSubtitleTextColorResId = SkinCompatHelper.checkResourceId(mSubtitleTextColorResId);
         if (mSubtitleTextColorResId != INVALID_ID) {
-            setSubtitleTextColor(SkinCompatResources.getInstance().getColor(mSubtitleTextColorResId));
+            setSubtitleTextColor(SkinCompatManager.get(getContext()).getRes().getColor(mSubtitleTextColorResId));
         }
     }
 
     private void applyNavigationIcon() {
         mNavigationIconResId = SkinCompatHelper.checkResourceId(mNavigationIconResId);
         if (mNavigationIconResId != INVALID_ID) {
-            setNavigationIcon(SkinCompatResources.getInstance().getDrawable(mNavigationIconResId));
+            setNavigationIcon(SkinCompatManager.get(getContext()).getRes().getDrawable(mNavigationIconResId));
         }
     }
 

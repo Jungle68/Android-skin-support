@@ -35,13 +35,13 @@ public class SkinCompatActivity extends AppCompatActivity implements SkinObserve
     @Override
     protected void onResume() {
         super.onResume();
-        SkinCompatManager.getInstance().addObserver(this);
+        SkinCompatManager.get(this).addObserver(this);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        SkinCompatManager.getInstance().deleteObserver(this);
+        SkinCompatManager.get(this).deleteObserver(this);
     }
 
     @Override

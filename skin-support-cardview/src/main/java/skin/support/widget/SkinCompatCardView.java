@@ -7,8 +7,8 @@ import android.graphics.Color;
 import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
 
+import skin.support.SkinCompatManager;
 import skin.support.cardview.R;
-import skin.support.content.res.SkinCompatResources;
 import skin.support.utils.SkinLog;
 
 import static skin.support.widget.SkinCompatHelper.INVALID_ID;
@@ -51,12 +51,12 @@ public class SkinCompatCardView extends CardView implements SkinCompatSupportabl
         if (mBackgroundColorResId != INVALID_ID) {
             SkinLog.d("CardView", "mBackgroundColorResId = " + mBackgroundColorResId
                     + ", res name = " + getResources().getResourceName(mBackgroundColorResId));
-            backgroundColor = SkinCompatResources.getInstance().getColorStateList(mBackgroundColorResId);
+            backgroundColor = SkinCompatManager.get(getContext()).getRes().getColorStateList(mBackgroundColorResId);
             setCardBackgroundColor(backgroundColor);
         } else if (mThemeColorBackgroundResId != INVALID_ID) {
             SkinLog.d("CardView", "mThemeColorBackgroundResId = " + mThemeColorBackgroundResId
                     + ", res name = " + getResources().getResourceName(mThemeColorBackgroundResId));
-            int themeColorBackground = SkinCompatResources.getInstance().getColor(mThemeColorBackgroundResId);
+            int themeColorBackground = SkinCompatManager.get(getContext()).getRes().getColor(mThemeColorBackgroundResId);
             final float[] hsv = new float[3];
             Color.colorToHSV(themeColorBackground, hsv);
             backgroundColor = ColorStateList.valueOf(hsv[2] > 0.5f

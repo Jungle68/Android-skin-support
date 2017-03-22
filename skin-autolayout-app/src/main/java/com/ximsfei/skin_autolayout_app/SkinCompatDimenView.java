@@ -6,6 +6,7 @@ import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 
+import skin.support.SkinCompatManager;
 import skin.support.content.res.SkinCompatResources;
 import skin.support.widget.SkinCompatView;
 
@@ -63,15 +64,15 @@ public class SkinCompatDimenView extends SkinCompatView {
 
     private int getDimen(int resId) {
         int dimen = (int) getResources().getDimension(resId);
-        if (SkinCompatResources.getInstance().isDefaultSkin()) {
+        if (SkinCompatManager.get(getContext()).getRes().isDefaultSkin()) {
             return dimen;
         }
 
-        Resources res = SkinCompatResources.getInstance().getSkinResources();
-        String resName = res.getResourceEntryName(resId);
+        String resName = getResources().getResourceEntryName(resId);
 
+        Resources res = SkinCompatManager.get(getContext()).getRes().getSkinResources();
         int targetResId = res.getIdentifier(resName, "dimen",
-                SkinCompatResources.getInstance().getSkinPkgName());
+                SkinCompatManager.get(getContext()).getRes().getSkinPkgName());
 
         return targetResId == 0 ? dimen : (int) res.getDimension(targetResId);
     }

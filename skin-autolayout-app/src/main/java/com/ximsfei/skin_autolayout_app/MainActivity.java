@@ -7,7 +7,6 @@ import android.view.View;
 
 import skin.support.SkinCompatManager;
 import skin.support.app.SkinCompatActivity;
-import skin.support.utils.SkinPreference;
 
 /**
  * Created by pengfengwang on 2017/3/15.
@@ -21,10 +20,10 @@ public class MainActivity extends SkinCompatActivity {
         findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (TextUtils.isEmpty(SkinPreference.getInstance().getSkinName())) {
-                    SkinCompatManager.getInstance().loadSkin("night.skin", null);
+                if (TextUtils.isEmpty(SkinCompatManager.get(MainActivity.this).getCurSkinName())) {
+                    SkinCompatManager.get(MainActivity.this).loadSkin("night.skin", null);
                 } else {
-                    SkinCompatManager.getInstance().restoreDefaultTheme();
+                    SkinCompatManager.get(MainActivity.this).restoreDefaultTheme();
                 }
             }
         });

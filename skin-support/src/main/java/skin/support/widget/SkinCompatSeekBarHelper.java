@@ -1,21 +1,11 @@
 package skin.support.widget;
 
-import android.annotation.TargetApi;
-import android.content.res.ColorStateList;
-import android.graphics.Canvas;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
-import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
-import android.support.v4.graphics.drawable.DrawableCompat;
-import android.support.v4.view.ViewCompat;
-import android.support.v7.widget.DrawableUtils;
-import android.support.v7.widget.TintTypedArray;
+import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.widget.SeekBar;
 
 import skin.support.R;
-import skin.support.content.res.SkinCompatResources;
+import skin.support.SkinCompatManager;
 
 /**
  * Created by ximsfei on 17-1-21.
@@ -34,8 +24,7 @@ public class SkinCompatSeekBarHelper extends SkinCompatProgressBarHelper {
     void loadFromAttributes(AttributeSet attrs, int defStyleAttr) {
         super.loadFromAttributes(attrs, defStyleAttr);
 
-        TintTypedArray a = TintTypedArray.obtainStyledAttributes(mView.getContext(), attrs,
-                R.styleable.AppCompatSeekBar, defStyleAttr, 0);
+        TypedArray a = mView.getContext().obtainStyledAttributes(attrs, R.styleable.AppCompatSeekBar, defStyleAttr, 0);
         mThumbResId = a.getResourceId(R.styleable.AppCompatSeekBar_android_thumb, INVALID_ID);
 //        final Drawable drawable = a.getDrawableIfKnown(R.styleable.AppCompatSeekBar_android_thumb);
 //        if (drawable != null) {
@@ -68,7 +57,7 @@ public class SkinCompatSeekBarHelper extends SkinCompatProgressBarHelper {
         super.applySkin();
         mThumbResId = checkResourceId(mThumbResId);
         if (mThumbResId != INVALID_ID) {
-            mView.setThumb(SkinCompatResources.getInstance().getDrawable(mThumbResId));
+            mView.setThumb(SkinCompatManager.get(mView.getContext()).getRes().getDrawable(mThumbResId));
         }
     }
 }

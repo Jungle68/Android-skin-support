@@ -1,5 +1,6 @@
 package skin.support.widget;
 
+import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
 import android.graphics.Shader;
@@ -12,13 +13,12 @@ import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RoundRectShape;
 import android.graphics.drawable.shapes.Shape;
 import android.support.v4.graphics.drawable.DrawableWrapper;
-import android.support.v7.widget.TintTypedArray;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.widget.ProgressBar;
 
 import skin.support.R;
-import skin.support.content.res.SkinCompatResources;
+import skin.support.SkinCompatManager;
 
 /**
  * Created by ximsfei on 2017/1/20.
@@ -42,7 +42,7 @@ public class SkinCompatProgressBarHelper extends SkinCompatHelper {
     }
 
     void loadFromAttributes(AttributeSet attrs, int defStyleAttr) {
-        TintTypedArray a = TintTypedArray.obtainStyledAttributes(mView.getContext(), attrs,
+        TypedArray a = mView.getContext().obtainStyledAttributes(attrs,
                 TINT_ATTRS, defStyleAttr, 0);
 
         mIndeterminateDrawableResId = a.getResourceId(0, INVALID_ID);
@@ -132,14 +132,14 @@ public class SkinCompatProgressBarHelper extends SkinCompatHelper {
     public void applySkin() {
         mIndeterminateDrawableResId = checkResourceId(mIndeterminateDrawableResId);
         if (mIndeterminateDrawableResId != INVALID_ID) {
-            Drawable drawable = SkinCompatResources.getInstance().getDrawable(mIndeterminateDrawableResId);
+            Drawable drawable = SkinCompatManager.get(mView.getContext()).getRes().getDrawable(mIndeterminateDrawableResId);
             drawable.setBounds(mView.getIndeterminateDrawable().getBounds());
             mView.setIndeterminateDrawable(tileifyIndeterminate(drawable));
         }
 
         mProgressDrawableResId = checkProgressDrawableResId(mProgressDrawableResId);
         if (mProgressDrawableResId != INVALID_ID) {
-            Drawable drawable = SkinCompatResources.getInstance().getDrawable(mProgressDrawableResId);
+            Drawable drawable = SkinCompatManager.get(mView.getContext()).getRes().getDrawable(mProgressDrawableResId);
             mView.setProgressDrawable(tileify(drawable, false));
         }
     }

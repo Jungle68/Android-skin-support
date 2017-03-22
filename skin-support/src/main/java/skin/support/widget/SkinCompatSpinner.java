@@ -6,12 +6,11 @@ import android.content.res.TypedArray;
 import android.os.Build;
 import android.support.annotation.DrawableRes;
 import android.support.v7.widget.AppCompatSpinner;
-import android.support.v7.widget.TintTypedArray;
 import android.util.AttributeSet;
 import android.util.Log;
 
 import skin.support.R;
-import skin.support.content.res.SkinCompatResources;
+import skin.support.SkinCompatManager;
 
 import static skin.support.widget.SkinCompatHelper.INVALID_ID;
 import static skin.support.widget.SkinCompatHelper.checkResourceId;
@@ -54,8 +53,7 @@ public class SkinCompatSpinner extends AppCompatSpinner implements SkinCompatSup
 
     public SkinCompatSpinner(Context context, AttributeSet attrs, int defStyleAttr, int mode, Resources.Theme popupTheme) {
         super(context, attrs, defStyleAttr, mode, popupTheme);
-        TintTypedArray a = TintTypedArray.obtainStyledAttributes(context, attrs,
-                R.styleable.Spinner, defStyleAttr, 0);
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.Spinner, defStyleAttr, 0);
 
         if (getPopupContext() != null) {
             if (mode == MODE_THEME) {
@@ -82,8 +80,8 @@ public class SkinCompatSpinner extends AppCompatSpinner implements SkinCompatSup
             }
 
             if (mode == MODE_DROPDOWN) {
-                final TintTypedArray pa = TintTypedArray.obtainStyledAttributes(
-                        getPopupContext(), attrs, R.styleable.Spinner, defStyleAttr, 0);
+                final TypedArray pa = getPopupContext().obtainStyledAttributes(
+                        attrs, R.styleable.Spinner, defStyleAttr, 0);
                 mPopupBackgroundResId = pa.getResourceId(R.styleable.Spinner_android_popupBackground, INVALID_ID);
                 pa.recycle();
             }
@@ -104,7 +102,7 @@ public class SkinCompatSpinner extends AppCompatSpinner implements SkinCompatSup
     private void applyPopupBackground() {
         mPopupBackgroundResId = checkResourceId(mPopupBackgroundResId);
         if (mPopupBackgroundResId != INVALID_ID) {
-            setPopupBackgroundDrawable(SkinCompatResources.getInstance().getDrawable(mPopupBackgroundResId));
+            setPopupBackgroundDrawable(SkinCompatManager.get(getContext()).getRes().getDrawable(mPopupBackgroundResId));
         }
     }
 

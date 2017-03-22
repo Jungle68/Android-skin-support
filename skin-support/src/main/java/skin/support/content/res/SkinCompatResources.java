@@ -6,35 +6,37 @@ import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 
+import java.util.HashMap;
+
 /**
  * Created by ximsfei on 2017/1/11.
  */
 
 public class SkinCompatResources {
-    private static volatile SkinCompatResources sInstance;
+//    private static volatile SkinCompatResources sInstance;
     private final Context mAppContext;
     private Resources mResources;
     private String mSkinPkgName;
     private boolean isDefaultSkin;
 
-    private SkinCompatResources(Context context) {
+    public SkinCompatResources(Context context) {
         mAppContext = context.getApplicationContext();
         setSkinResource(mAppContext.getResources(), mAppContext.getPackageName());
     }
 
-    public static void init(Context context) {
-        if (sInstance == null) {
-            synchronized (SkinCompatResources.class) {
-                if (sInstance == null) {
-                    sInstance = new SkinCompatResources(context);
-                }
-            }
-        }
-    }
+//    public static void init(Context context) {
+//        if (sInstance == null) {
+//            synchronized (SkinCompatResources.class) {
+//                if (sInstance == null) {
+//                    sInstance = new SkinCompatResources(context);
+//                }
+//            }
+//        }
+//    }
 
-    public static SkinCompatResources getInstance() {
-        return sInstance;
-    }
+//    public static SkinCompatResources getInstance() {
+//        return sInstance;
+//    }
 
     public void setSkinResource(Resources resources, String pkgName) {
         mResources = resources;

@@ -5,12 +5,11 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.RequiresApi;
-import android.support.v7.widget.AppCompatDrawableManager;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
 import skin.support.R;
-import skin.support.content.res.SkinCompatResources;
+import skin.support.SkinCompatManager;
 
 /**
  * Created by pengfengwang on 2017/3/8.
@@ -50,28 +49,28 @@ public class SkinCompatTextHelperV17 extends SkinCompatTextHelper {
                 drawableStart = null, drawableEnd = null;
         mDrawableLeftResId = checkResourceId(mDrawableLeftResId);
         if (mDrawableLeftResId != INVALID_ID) {
-            drawableLeft = SkinCompatResources.getInstance().getDrawable(mDrawableLeftResId);
+            drawableLeft = SkinCompatManager.get(mView.getContext()).getRes().getDrawable(mDrawableLeftResId);
         }
         mDrawableTopResId = checkResourceId(mDrawableTopResId);
         if (mDrawableTopResId != INVALID_ID) {
-            drawableTop = SkinCompatResources.getInstance().getDrawable(mDrawableTopResId);
+            drawableTop = SkinCompatManager.get(mView.getContext()).getRes().getDrawable(mDrawableTopResId);
         }
         mDrawableRightResId = checkResourceId(mDrawableRightResId);
         if (mDrawableRightResId != INVALID_ID) {
-            drawableRight = SkinCompatResources.getInstance().getDrawable(mDrawableRightResId);
+            drawableRight = SkinCompatManager.get(mView.getContext()).getRes().getDrawable(mDrawableRightResId);
         }
         mDrawableBottomResId = checkResourceId(mDrawableBottomResId);
         if (mDrawableBottomResId != INVALID_ID) {
-            drawableBottom = SkinCompatResources.getInstance().getDrawable(mDrawableBottomResId);
+            drawableBottom = SkinCompatManager.get(mView.getContext()).getRes().getDrawable(mDrawableBottomResId);
         }
         if (mDrawableStartResId != INVALID_ID) {
-            drawableStart = SkinCompatResources.getInstance().getDrawable(mDrawableStartResId);
+            drawableStart = SkinCompatManager.get(mView.getContext()).getRes().getDrawable(mDrawableStartResId);
         }
         if (drawableStart == null) {
             drawableStart = drawableLeft;
         }
         if (mDrawableEndResId != INVALID_ID) {
-            drawableEnd = SkinCompatResources.getInstance().getDrawable(mDrawableEndResId);
+            drawableEnd = SkinCompatManager.get(mView.getContext()).getRes().getDrawable(mDrawableEndResId);
         }
         if (drawableEnd == null) {
             drawableEnd = drawableRight;

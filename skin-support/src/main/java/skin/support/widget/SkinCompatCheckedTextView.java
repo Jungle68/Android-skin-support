@@ -6,6 +6,7 @@ import android.support.v7.widget.AppCompatCheckedTextView;
 import android.support.v7.widget.TintTypedArray;
 import android.util.AttributeSet;
 
+import skin.support.SkinCompatManager;
 import skin.support.content.res.SkinCompatResources;
 
 import static skin.support.widget.SkinCompatHelper.INVALID_ID;
@@ -87,7 +88,7 @@ public class SkinCompatCheckedTextView extends AppCompatCheckedTextView implemen
     private void applyCheckMark() {
         mCheckMarkResId = SkinCompatHelper.checkResourceId(mCheckMarkResId);
         if (mCheckMarkResId != INVALID_ID) {
-            setCheckMarkDrawable(SkinCompatResources.getInstance().getDrawable(mCheckMarkResId));
+            setCheckMarkDrawable(SkinCompatManager.get(getContext()).getRes().getDrawable(mCheckMarkResId));
         }
     }
 }

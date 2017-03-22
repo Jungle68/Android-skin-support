@@ -14,7 +14,7 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
 //        SkinHookAutoLayoutManager.init(this);
-        SkinCompatManager.init(this)
+        SkinCompatManager.get(this)
                 .addHookInflater(new SkinHookAutoLayoutViewInflater())
                 .loadSkin();
     }

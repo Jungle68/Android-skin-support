@@ -16,6 +16,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import skin.support.app.SkinLayoutInflater;
@@ -23,7 +24,7 @@ import skin.support.observe.SkinObservable;
 import skin.support.utils.SkinConstants;
 import skin.support.utils.SkinFileUtils;
 import skin.support.utils.SkinLog;
-import skin.support.utils.SkinPreference;
+import skin.support.utils.SkinCompatPref;
 import skin.support.content.res.SkinCompatResources;
 
 /**
@@ -31,9 +32,12 @@ import skin.support.content.res.SkinCompatResources;
  */
 
 public class SkinCompatManager extends SkinObservable {
-    private static volatile SkinCompatManager sInstance;
+    private static HashMap<Context, SkinCompatManager> sManagerMap = new HashMap<>();
+//    private static volatile SkinCompatManager sInstance;
     private final Object mLock = new Object();
     private final Context mAppContext;
+    private final SkinCompatResources mSkinCompatResources;
+    private final SkinCompatPref mSkinCompatPref;
     private boolean mLoading = false;
     private List<SkinLayoutInflater> mInflaters = new ArrayList<>();
     private List<SkinLayoutInflater> mHookInflaters = new ArrayList<>();
@@ -46,25 +50,42 @@ public class SkinCompatManager extends SkinObservable {
         void onFailed(String errMsg);
     }
 
-    public static SkinCompatManager init(Context context) {
-        if (sInstance == null) {
+//    public static SkinCompatManager init(Context context) {
+//        if (sInstance == null) {
+//            synchronized (SkinCompatManager.class) {
+//                if (sInstance == null) {
+//                    sInstance = new SkinCompatManager(context);
+//                }
+//            }
+//        }
+//        return sInstance;
+//    }
+
+    public static SkinCompatManager get(Context context) {
+        Context applicationContext = context.getApplicationContext();
+        SkinCompatManager manager = sManagerMap.get(applicationContext);
+        if (manager == null) {
             synchronized (SkinCompatManager.class) {
-                if (sInstance == null) {
-                    sInstance = new SkinCompatManager(context);
+                manager = sManagerMap.get(context.getApplicationContext());
+                if (manager == null) {
+                    manager = new SkinCompatManager(applicationContext);
+                    sManagerMap.put(applicationContext, manager);
                 }
             }
         }
-        return sInstance;
+        return manager;
     }
 
-    public static SkinCompatManager getInstance() {
-        return sInstance;
-    }
+//    public static SkinCompatManager getInstance() {
+//        return sInstance;
+//    }
 
     private SkinCompatManager(Context context) {
         mAppContext = context.getApplicationContext();
-        SkinPreference.init(mAppContext);
-        SkinCompatResources.init(mAppContext);
+//        SkinCompatPref.init(mAppContext);
+//        SkinCompatResources.init(mAppContext);
+        mSkinCompatResources = new SkinCompatResources(mAppContext);
+        mSkinCompatPref = new SkinCompatPref(mAppContext);
     }
 
     public SkinCompatManager addInflater(SkinLayoutInflater inflater) {
@@ -85,8 +106,16 @@ public class SkinCompatManager extends SkinObservable {
         return mHookInflaters;
     }
 
+    public SkinCompatResources getRes() {
+        return mSkinCompatResources;
+    }
+
+    public SkinCompatPref getPref() {
+        return mSkinCompatPref;
+    }
+
     public String getCurSkinName() {
-        return SkinPreference.getInstance().getSkinName();
+        return mSkinCompatPref.getSkinName();
     }
 
     public void restoreDefaultTheme() {
@@ -94,7 +123,7 @@ public class SkinCompatManager extends SkinObservable {
     }
 
     public AsyncTask loadSkin() {
-        String skin = SkinPreference.getInstance().getSkinName();
+        String skin = mSkinCompatPref.getSkinName();
         if (TextUtils.isEmpty(skin)) {
             return null;
         }
@@ -102,7 +131,7 @@ public class SkinCompatManager extends SkinObservable {
     }
 
     public AsyncTask loadSkin(SkinLoaderListener listener) {
-        String skin = SkinPreference.getInstance().getSkinName();
+        String skin = mSkinCompatPref.getSkinName();
         if (TextUtils.isEmpty(skin)) {
             return null;
         }
@@ -145,7 +174,7 @@ public class SkinCompatManager extends SkinObservable {
             try {
                 if (params.length == 1) {
                     if (TextUtils.isEmpty(params[0])) {
-                        SkinCompatResources.getInstance().setSkinResource(
+                        mSkinCompatResources.setSkinResource(
                                 mAppContext.getResources(), mAppContext.getPackageName());
                         return params[0];
                     }
@@ -161,14 +190,14 @@ public class SkinCompatManager extends SkinObservable {
                     String pkgName = initSkinPackageName(skinPkgPath);
                     Resources resources = initSkinResources(skinPkgPath);
                     if (resources != null && !TextUtils.isEmpty(pkgName)) {
-                        SkinCompatResources.getInstance().setSkinResource(resources, pkgName);
+                        mSkinCompatResources.setSkinResource(resources, pkgName);
                         return params[0];
                     }
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            SkinCompatResources.getInstance().setSkinResource(
+            mSkinCompatResources.setSkinResource(
                     mAppContext.getResources(), mAppContext.getPackageName());
             return null;
         }
@@ -178,10 +207,10 @@ public class SkinCompatManager extends SkinObservable {
             synchronized (mLock) {
                 if (skinName != null) {
                     notifyUpdateSkin();
-                    SkinPreference.getInstance().setSkinName(skinName).commitEditor();
+                    mSkinCompatPref.setSkinName(skinName).commitEditor();
                     if (mListener != null) mListener.onSuccess();
                 } else {
-                    SkinPreference.getInstance().setSkinName("").commitEditor();
+                    mSkinCompatPref.setSkinName("").commitEditor();
                     if (mListener != null) mListener.onFailed("皮肤资源获取失败");
                 }
                 mLoading = false;

@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import skin.support.SkinCompatManager;
-import skin.support.utils.SkinPreference;
 
 /**
  * Created by ximsfei on 17-3-1.
@@ -33,10 +32,10 @@ public class MaterialDesignActivity extends BaseActivity {
         findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (TextUtils.isEmpty(SkinPreference.getInstance().getSkinName())) {
-                    SkinCompatManager.getInstance().loadSkin("night.skin", null);
+                if (TextUtils.isEmpty(SkinCompatManager.get(MaterialDesignActivity.this).getCurSkinName())) {
+                    SkinCompatManager.get(MaterialDesignActivity.this).loadSkin("night.skin", null);
                 } else {
-                    SkinCompatManager.getInstance().restoreDefaultTheme();
+                    SkinCompatManager.get(MaterialDesignActivity.this).restoreDefaultTheme();
                 }
             }
         });

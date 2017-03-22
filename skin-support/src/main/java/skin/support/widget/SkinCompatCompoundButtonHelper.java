@@ -1,14 +1,11 @@
 package skin.support.widget;
 
 import android.content.res.TypedArray;
-import android.support.v4.widget.CompoundButtonCompat;
-import android.support.v7.content.res.AppCompatResources;
-import android.support.v7.widget.DrawableUtils;
 import android.util.AttributeSet;
 import android.widget.CompoundButton;
 
 import skin.support.R;
-import skin.support.content.res.SkinCompatResources;
+import skin.support.SkinCompatManager;
 
 /**
  * Created by ximsfei on 17-1-14.
@@ -59,7 +56,7 @@ public class SkinCompatCompoundButtonHelper extends SkinCompatHelper {
     public void applySkin() {
         mButtonResourceId = SkinCompatHelper.checkResourceId(mButtonResourceId);
         if (mButtonResourceId != INVALID_ID) {
-            mView.setButtonDrawable(SkinCompatResources.getInstance().getDrawable(mButtonResourceId));
+            mView.setButtonDrawable(SkinCompatManager.get(mView.getContext()).getRes().getDrawable(mButtonResourceId));
         }
     }
 }

@@ -7,8 +7,8 @@ import android.support.annotation.DrawableRes;
 import android.util.AttributeSet;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import skin.support.SkinCompatManager;
 import skin.support.circleimageview.R;
-import skin.support.content.res.SkinCompatResources;
 import skin.support.widget.SkinCompatHelper;
 import skin.support.widget.SkinCompatImageHelper;
 import skin.support.widget.SkinCompatSupportable;
@@ -49,7 +49,7 @@ public class SkinCompatCircleImageView extends CircleImageView implements SkinCo
     private void applyFillColorResource() {
         mFillColorResId = SkinCompatHelper.checkResourceId(mFillColorResId);
         if (mFillColorResId != INVALID_ID) {
-            int color = SkinCompatResources.getInstance().getColor(mFillColorResId);
+            int color = SkinCompatManager.get(getContext()).getRes().getColor(mFillColorResId);
             setFillColor(color);
         }
     }
@@ -57,7 +57,7 @@ public class SkinCompatCircleImageView extends CircleImageView implements SkinCo
     private void applyBorderColorResource() {
         mBorderColorResId = SkinCompatHelper.checkResourceId(mBorderColorResId);
         if (mBorderColorResId != INVALID_ID) {
-            int color = SkinCompatResources.getInstance().getColor(mBorderColorResId);
+            int color = SkinCompatManager.get(getContext()).getRes().getColor(mBorderColorResId);
             setBorderColor(color);
         }
     }

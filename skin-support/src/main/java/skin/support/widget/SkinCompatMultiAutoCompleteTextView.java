@@ -2,16 +2,16 @@ package skin.support.widget;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.DrawableRes;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.AppCompatMultiAutoCompleteTextView;
-import android.support.v7.widget.TintTypedArray;
 import android.util.AttributeSet;
 
 import skin.support.R;
-import skin.support.content.res.SkinCompatResources;
+import skin.support.SkinCompatManager;
 
 import static skin.support.widget.SkinCompatHelper.INVALID_ID;
 
@@ -37,8 +37,7 @@ public class SkinCompatMultiAutoCompleteTextView extends AppCompatMultiAutoCompl
 
     public SkinCompatMultiAutoCompleteTextView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        TintTypedArray a = TintTypedArray.obtainStyledAttributes(getContext(), attrs,
-                TINT_ATTRS, defStyleAttr, 0);
+        TypedArray a = context.obtainStyledAttributes(attrs, TINT_ATTRS, defStyleAttr, 0);
         if (a.hasValue(0)) {
             mDropDownBackgroundResId = a.getResourceId(0, INVALID_ID);
         }
@@ -63,20 +62,20 @@ public class SkinCompatMultiAutoCompleteTextView extends AppCompatMultiAutoCompl
             String typeName = getResources().getResourceTypeName(mDropDownBackgroundResId);
             if ("color".equals(typeName)) {
                 if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-                    int color = SkinCompatResources.getInstance().getColor(mDropDownBackgroundResId);
+                    int color = SkinCompatManager.get(getContext()).getRes().getColor(mDropDownBackgroundResId);
                     setDrawingCacheBackgroundColor(color);
                 } else {
                     ColorStateList colorStateList =
-                            SkinCompatResources.getInstance().getColorStateList(mDropDownBackgroundResId);
+                            SkinCompatManager.get(getContext()).getRes().getColorStateList(mDropDownBackgroundResId);
                     Drawable drawable = getDropDownBackground();
                     DrawableCompat.setTintList(drawable, colorStateList);
                     setDropDownBackgroundDrawable(drawable);
                 }
             } else if ("drawable".equals(typeName)) {
-                Drawable drawable = SkinCompatResources.getInstance().getDrawable(mDropDownBackgroundResId);
+                Drawable drawable = SkinCompatManager.get(getContext()).getRes().getDrawable(mDropDownBackgroundResId);
                 setDropDownBackgroundDrawable(drawable);
             } else if ("mipmap".equals(typeName)) {
-                Drawable drawable = SkinCompatResources.getInstance().getMipmap(mDropDownBackgroundResId);
+                Drawable drawable = SkinCompatManager.get(getContext()).getRes().getMipmap(mDropDownBackgroundResId);
                 setDropDownBackgroundDrawable(drawable);
             }
         }

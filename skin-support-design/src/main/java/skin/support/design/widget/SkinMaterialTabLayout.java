@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.support.design.widget.TabLayout;
 import android.util.AttributeSet;
 
+import skin.support.SkinCompatManager;
 import skin.support.content.res.SkinCompatResources;
 import skin.support.design.R;
 import skin.support.widget.SkinCompatHelper;
@@ -65,15 +66,15 @@ public class SkinMaterialTabLayout extends TabLayout implements SkinCompatSuppor
     public void applySkin() {
         mTabIndicatorColorResId = SkinCompatHelper.checkResourceId(mTabIndicatorColorResId);
         if (mTabIndicatorColorResId != INVALID_ID) {
-            setSelectedTabIndicatorColor(SkinCompatResources.getInstance().getColor(mTabIndicatorColorResId));
+            setSelectedTabIndicatorColor(SkinCompatManager.get(getContext()).getRes().getColor(mTabIndicatorColorResId));
         }
         mTabTextColorsResId = SkinCompatHelper.checkResourceId(mTabTextColorsResId);
         if (mTabTextColorsResId != INVALID_ID) {
-            setTabTextColors(SkinCompatResources.getInstance().getColorStateList(mTabTextColorsResId));
+            setTabTextColors(SkinCompatManager.get(getContext()).getRes().getColorStateList(mTabTextColorsResId));
         }
         mTabSelectedTextColorResId = SkinCompatHelper.checkResourceId(mTabSelectedTextColorResId);
         if (mTabSelectedTextColorResId != INVALID_ID) {
-            int selected = SkinCompatResources.getInstance().getColor(mTabSelectedTextColorResId);
+            int selected = SkinCompatManager.get(getContext()).getRes().getColor(mTabSelectedTextColorResId);
             if (getTabTextColors() != null) {
                 setTabTextColors(getTabTextColors().getDefaultColor(), selected);
             }
