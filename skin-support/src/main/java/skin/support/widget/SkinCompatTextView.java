@@ -1,6 +1,7 @@
 package skin.support.widget;
 
 import android.content.Context;
+import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
@@ -65,6 +66,14 @@ public class SkinCompatTextView extends AppCompatTextView implements SkinCompatS
         super.setCompoundDrawablesWithIntrinsicBounds(left, top, right, bottom);
         if (mTextHelper != null) {
             mTextHelper.onSetCompoundDrawablesWithIntrinsicBounds(left, top, right, bottom);
+        }
+    }
+
+    @Override
+    public void setTextColor(@ColorInt int color) {
+        super.setTextColor(color);
+        if (mTextHelper != null) {
+            mTextHelper.setTextColor(color);
         }
     }
 

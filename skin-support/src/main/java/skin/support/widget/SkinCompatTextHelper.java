@@ -6,7 +6,6 @@ import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.DrawableRes;
-import android.support.v7.widget.TintTypedArray;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
@@ -180,6 +179,12 @@ public class SkinCompatTextHelper extends SkinCompatHelper {
 
     public int getTextColorResId() {
         return mTextColorResId;
+    }
+
+
+    public void setTextColor(int textColor) {
+//        mView.setTextColor(textColor);
+        applyTextColorResource();
     }
 
     public void applySkin() {
