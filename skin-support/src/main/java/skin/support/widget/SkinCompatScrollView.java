@@ -20,7 +20,7 @@ public class SkinCompatScrollView extends ScrollView implements SkinCompatSuppor
     }
 
     public SkinCompatScrollView(Context context, AttributeSet attrs) {
-        this(context, attrs, android.R.attr.textViewStyle);
+        this(context, attrs, android.R.attr.scrollViewStyle);
     }
 
     public SkinCompatScrollView(Context context, AttributeSet attrs, int defStyleAttr) {
