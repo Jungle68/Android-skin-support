@@ -5,7 +5,6 @@ import android.support.annotation.DrawableRes;
 import android.util.AttributeSet;
 import android.widget.ScrollView;
 
-
 /**
  * @Describe
  * @Author Jungle68
@@ -36,7 +35,6 @@ public class SkinCompatScrollView extends ScrollView implements SkinCompatSuppor
             mBackgroundTintHelper.onSetBackgroundResource(resId);
         }
     }
-
 
     @Override
     public void applySkin() {
